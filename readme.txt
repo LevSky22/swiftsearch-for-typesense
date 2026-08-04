@@ -3,7 +3,7 @@ Contributors: loopstates
 Tags: typesense, woocommerce, instant search, auto complete, algolia
 Requires at least: 6.0
 Tested up to: 7.0.2
-Stable tag: 1.6.2
+Stable tag: 1.6.3
 Requires PHP: 8.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -230,6 +230,9 @@ Minor bug fixes to resolve the browser-driven sync infinite loop. Please update 
 Robust browser fallback for servers with loopback/cURL security restrictions. Please update immediately.
  
 == Changelog ==
+
+= 1.6.3 =
+* Fix: Responsive multi-instance layout bug. Scoped frontend search event listeners relatively to wrapper class instances.
 
 = 1.6.2 =
 * Fix: Prevented WP-CLI progress bar hangs by bypassing WordPress rendering layout/builder filters on post excerpts during CLI indexing.

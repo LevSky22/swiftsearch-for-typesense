@@ -2,6 +2,9 @@
 
 All notable changes to the SwiftSearch - Typesense Search for WordPress plugin will be documented in this file.
 
+## [1.6.3] - 2026-08-04
+- **Fix**: Scoped event listeners and selectors relatively to wrappers to support multiple concurrent search bar instances (resolves responsive mobile search header freeze).
+
 ## [1.6.2] - 2026-07-23
 - **Fix**: Prevented WP-CLI progress bar hangs by bypassing WordPress rendering layout/builder filters on post excerpts during CLI indexing.
 

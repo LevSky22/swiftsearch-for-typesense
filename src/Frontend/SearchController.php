@@ -176,7 +176,7 @@ class SearchController
             data-layout="<?php echo esc_attr($a['layout']); ?>"
             data-browse="<?php echo ($a['layout'] === 'catalog') ? 'true' : 'false'; ?>">
             <div class="ss-search-box">
-                <input type="text" id="ss-search-input" placeholder="<?php echo esc_attr($a['placeholder']); ?>"
+                <input type="text" id="ss-search-input" class="ss-search-input" placeholder="<?php echo esc_attr($a['placeholder']); ?>"
                     autocomplete="off">
                 <span class="ss-loader" style="display:none;"></span>
             </div>
