@@ -2,6 +2,10 @@
 
 All notable changes to the SwiftSearch - Typesense Search for WordPress plugin will be documented in this file.
 
+## [1.6.4] - 2026-08-13
+- **Fix**: Resolved WooCommerce price filter compatibility issue.
+- **Compatibility**: Full support for WordPress 7.0.4.
+
 ## [1.6.3] - 2026-08-04
 - **Fix**: Scoped event listeners and selectors relatively to wrappers to support multiple concurrent search bar instances (resolves responsive mobile search header freeze).
 
