@@ -3,7 +3,7 @@ Contributors: loopstates
 Tags: typesense, woocommerce, instant search, auto complete, algolia
 Requires at least: 6.0
 Tested up to: 7.0.4
-Stable tag: 1.6.4
+Stable tag: 1.6.5
 Requires PHP: 8.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -230,6 +230,13 @@ Minor bug fixes to resolve the browser-driven sync infinite loop. Please update 
 Robust browser fallback for servers with loopback/cURL security restrictions. Please update immediately.
  
 == Changelog ==
+
+= 1.6.5 =
+* Fix: Resolved an issue where searches with zero results were not logged to analytics.
+* Fix: Bypassed nonce check on the analytics logging endpoint to prevent 403 blocks on cached sites.
+* Fix: Merged mapped custom fields during pro config loads.
+* Improvement: Displayed detailed validation and server errors in the settings panel.
+* Robustness: Handled individual query failures inside multi-search responses.
 
 = 1.6.4 =
 * Fix: Resolved WooCommerce price filter compatibility issue.

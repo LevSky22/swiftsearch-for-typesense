@@ -735,9 +735,15 @@ class RestController extends WP_REST_Controller
                 }
                 
                 if (!empty($patch_fields)) {
-                    $client->patch_collection('posts', array(
+                    $patch_res = $client->patch_collection('posts', array(
                         'fields' => $patch_fields
                     ));
+                    if ($patch_res === false) {
+                        return new \WP_REST_Response(array(
+                            'success' => false,
+                            'message' => 'Failed to sync schema update to Typesense: ' . $client->get_last_error()
+                        ), 400);
+                    }
                 }
             }
 
@@ -810,10 +816,6 @@ class RestController extends WP_REST_Controller
      */
     public function handle_log($request)
     {
-        $permission = $this->check_log_permission($request);
-        if (is_wp_error($permission)) {
-            return $permission;
-        }
 
         $params = $request->get_params();
         $query = sanitize_text_field($params['query'] ?? '');

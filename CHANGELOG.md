@@ -2,6 +2,13 @@
 
 All notable changes to the SwiftSearch - Typesense Search for WordPress plugin will be documented in this file.
 
+## [1.6.5] - 2026-08-14
+- **Fix**: Resolved an issue where searches with zero results were not logged to analytics.
+- **Fix**: Bypassed nonce check on the analytics logging endpoint to prevent 403 blocks on cached sites.
+- **Fix**: Merged mapped custom fields during pro config loads.
+- **Improvement**: Displayed detailed validation and server errors in the settings panel.
+- **Robustness**: Handled individual query failures inside multi-search responses.
+
 ## [1.6.4] - 2026-08-13
 - **Fix**: Resolved WooCommerce price filter compatibility issue.
 - **Compatibility**: Full support for WordPress 7.0.4.

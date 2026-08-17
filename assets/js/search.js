@@ -314,6 +314,14 @@
 
             const results = data && data.results ? data.results : [];
 
+            // Check for individual query errors from Typesense multi_search
+            const errorResult = results.find(r => r.error);
+            if (errorResult) {
+                console.error('Typesense query error:', errorResult.error);
+                hitsContainer.innerHTML = '<div class="ss-no-results">Search currently unavailable. Please try again later.</div>';
+                return;
+            }
+
             // 0. Handle Sidebar Visibility (Conditional)
             const hasFacets = results.some(r => r.facet_counts && r.facet_counts.length > 0);
             if (!hasFacets) {
@@ -330,6 +338,7 @@
                         <span class="dashicons dashicons-search"></span>
                         <p>${msg}</p>
                     </div>`;
+                logSearch(queryVal, 0);
                 return;
             }
 
@@ -724,16 +733,11 @@
             logTimer = setTimeout(() => {
                 const payload = { query: query, hits: hits };
 
-                const headers = {
-                    'Content-Type': 'application/json'
-                };
-                if (config.nonce) {
-                    headers['X-WP-Nonce'] = config.nonce;
-                }
-
                 fetch(config.apiUrl + '/log', {
                     method: 'POST',
-                    headers: headers,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify(payload)
                 }).then(response => {
                     if (!response.ok) console.warn('SwiftSearch Log Failed', response.status);

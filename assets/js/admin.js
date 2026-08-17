@@ -451,8 +451,11 @@
                 if (response.success) {
                     alert('Content Settings Saved!');
                 } else {
-                    alert('Failed to save settings.');
+                    alert('Failed to save settings: ' + (response.message || 'Unknown error'));
                 }
+            }).fail(function (xhr) {
+                const response = xhr.responseJSON;
+                alert('Failed to save settings: ' + (response && response.message ? response.message : 'Unknown network error'));
             }).always(function () {
                 $btn.prop('disabled', false).text(originalText);
             });
@@ -647,8 +650,11 @@
                 if (response.success) {
                     alert('Search UI Settings Saved!');
                 } else {
-                    alert('Failed to save settings.');
+                    alert('Failed to save settings: ' + (response.message || 'Unknown error'));
                 }
+            }).fail(function (xhr) {
+                const response = xhr.responseJSON;
+                alert('Failed to save settings: ' + (response && response.message ? response.message : 'Unknown network error'));
             }).always(function () {
                 $btn.prop('disabled', false).text(originalText);
             });

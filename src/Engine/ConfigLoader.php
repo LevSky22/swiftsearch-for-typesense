@@ -75,6 +75,10 @@ class ConfigLoader
             $defaults['experience'] = (array)$saved['experience'];
         }
 
+        if (isset($saved['custom_fields'])) {
+            $defaults['custom_fields'] = (array)$saved['custom_fields'];
+        }
+
         // Future: Ranking Rules could also be merged here
 
         return $defaults;
