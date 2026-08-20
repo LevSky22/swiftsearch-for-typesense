@@ -2,8 +2,8 @@
 Contributors: loopstates
 Tags: typesense, woocommerce, instant search, auto complete, algolia
 Requires at least: 6.0
-Tested up to: 7.0.4
-Stable tag: 1.6.5
+Tested up to: 7.1
+Stable tag: 1.6.6
 Requires PHP: 8.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -41,7 +41,7 @@ Never show a "No Results Found" page due to a simple spelling mistake. Typesense
 Track exactly what your users are looking for. Our admin dashboard provides a complete overview of search volumes and trends. Most importantly, it flags "Zero Result Queries" so you can spot inventory gaps or set up synonyms for missing terms.
 
 ### Custom Fields and Faceted Sidebar Navigation
-Give users the power to filter results instantly. Map any custom meta fields (such as Price, Brand, SKU, or custom ACF fields) and build multi-select facet filters using our visual drag-and-drop layout builder.
+Give users the power to filter results instantly. Map any custom meta fields (such as Price, Brand, SKU, or custom metadata fields) and build multi-select facet filters using our visual drag-and-drop layout builder.
 
 ### Background Sync and Real-Time Updates
 When you first connect, our background sync engine processes your content in self-scheduling batches to prevent script timeouts. Once indexed, any new, updated, or deleted posts/products are synchronized.
@@ -124,6 +124,25 @@ Backend developers can customize data synchronization and query configurations u
 
 1. `swift_search_post_document` - Filters the structured document data before it is sent/synced to Typesense. Use this to add custom meta fields, dynamic stock rules, or text content modifications.
    * Arguments: `$document` (array), `$post_id` (int), `$post` (WP_Post object).
+   * Code Example (Complex Meta, HTML Sanitization & Array Handling):
+     `add_filter('swift_search_post_document', function($document, $post_id, $post) {
+         // Fetch complex custom fields (e.g. using helper functions if available)
+         if (function_exists('get_field')) {
+             $brand = get_field('brand_name', $post_id);
+             if ($brand) $document['brand'] = $brand;
+         }
+         // Strip HTML/shortcodes from WYSIWYG content
+         $wysiwyg = get_post_meta($post_id, 'hero_wysiwyg', true);
+         if ($wysiwyg) {
+             $document['hero_text'] = wp_strip_all_tags(strip_shortcodes($wysiwyg));
+         }
+         // Flatten array values for flat target fields
+         $colors = get_post_meta($post_id, 'colors', true);
+         if (is_array($colors)) {
+             $document['colors_list'] = implode(', ', $colors);
+         }
+         return $document;
+     }, 10, 3);`
 
 2. `swift_search_should_index_post` - Filter returning a boolean. Return `false` to completely exclude specific posts, drafts, or out-of-stock products from the search index.
    * Arguments: `$should_index` (bool), `$post_id` (int), `$post` (WP_Post object).
@@ -230,6 +249,11 @@ Minor bug fixes to resolve the browser-driven sync infinite loop. Please update 
 Robust browser fallback for servers with loopback/cURL security restrictions. Please update immediately.
  
 == Changelog ==
+
+= 1.6.6 =
+* Improvement: Automatically sanitize default proposed target names to match Typesense field naming standards.
+* Compatibility: Full support for WordPress 7.1.
+* Documentation: Added developer hooks examples for complex metadata fields, HTML tag stripping, and array formatting.
 
 = 1.6.5 =
 * Fix: Resolved an issue where searches with zero results were not logged to analytics.

@@ -2,6 +2,11 @@
 
 All notable changes to the SwiftSearch - Typesense Search for WordPress plugin will be documented in this file.
 
+## [1.6.6] - 2026-08-20
+- **Improvement**: Automatically sanitize default proposed target names to match Typesense field naming standards.
+- **Compatibility**: Full support for WordPress 7.1.
+- **Documentation**: Added developer hooks examples for complex metadata fields, HTML tag stripping, and array formatting.
+
 ## [1.6.5] - 2026-08-14
 - **Fix**: Resolved an issue where searches with zero results were not logged to analytics.
 - **Fix**: Bypassed nonce check on the analytics logging endpoint to prevent 403 blocks on cached sites.

@@ -1616,7 +1616,7 @@
                             if (src.type === 'taxonomy') {
                                 if (src.source === 'category') targetName = 'category';
                                 else if (src.source === 'post_tag') targetName = 'tag';
-                                else targetName = 'tax_' + src.source;
+                                else targetName = 'tax_' + src.source.replace(/[^a-zA-Z0-9_]/g, '_');
                             } else if (src.source === '_sku') {
                                 targetName = 'sku';
                             } else if (src.source === '_price') {
@@ -1624,7 +1624,7 @@
                             } else if (src.source === '_stock_status') {
                                 targetName = 'in_stock';
                             } else {
-                                targetName = src.source.replace(/^_/, ''); // basic cleaning
+                                targetName = src.source.replace(/^_/, '').replace(/[^a-zA-Z0-9_]/g, '_'); // basic cleaning and hyphen/special char sanitization
                             }
                         }
 
